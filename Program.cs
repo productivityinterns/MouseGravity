@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Drawing;
-
 using System.Windows;
 using System.Threading;
 namespace MouseGravity
@@ -34,6 +33,11 @@ class program {
     [DllImport("user32.dll", SetLastError = true)]
     static extern bool SetCursorPos(int X, int Y);
 
+
+    [DllImport("User32.dll")]
+    public static extern IntPtr GetDC(IntPtr hwnd);
+    [DllImport("User32.dll")]
+    public static extern void ReleaseDC(IntPtr hwnd, IntPtr dc);
     /*
         This struct holds the coords of objects on screen, either cursor or target
      */
@@ -140,16 +144,29 @@ class program {
         
     static void Main(string[] args)
     {
-        while(true) {
+       
+        while(true) { 
+            /* 
+            THis is how to draw to a regulare screen without needing a form windo, so we can draw an overlay 
+            ontop of the screen
+            
+            IntPtr desktopPtr = GetDC(IntPtr.Zero);
+            Graphics g = Graphics.FromHdc(desktopPtr);
+            SolidBrush b = new SolidBrush(Color.White);
+            g.FillEllipse(b,new Rectangle(800, 500, 400, 400));
+            g.Dispose();
+            ReleaseDC(IntPtr.Zero, desktopPtr);
+            */
             POINT p1 = GetMousePosition();
             POINT p2 = GetTargetPostition();
-            if(CheckDistance(p1, p2,75)) {
+            if(CheckDistance(p1, p2,200)) {
                 ChangeMouseSpeed(1);
             } else {
                 ChangeMouseSpeed(8);
             }
             Thread.Sleep(100);
         }
+        
         
     }
 }

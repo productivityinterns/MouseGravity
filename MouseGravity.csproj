@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Windows.Forms" Version="4.0.0.0" />
+    <PackageReference Include="C" Version="4.6.0-preview6.19303.8" />
   </ItemGroup>
 
 </Project>
