@@ -69,7 +69,7 @@ class program {
         POINT p;
         if (GetCursorPos(out p))
         {
-            Console.WriteLine(Convert.ToString(p.X) + ";" + Convert.ToString(p.Y));
+           // Console.WriteLine(Convert.ToString(p.X) + ";" + Convert.ToString(p.Y));
         }
         return p;
     }
@@ -78,15 +78,26 @@ class program {
         within a certain margin
      */
     static Boolean CheckDistance(POINT userPos, POINT targetPos) {
-        int margin = 75;
+        int margin = 150;
         if (userPos.X >= targetPos.X - margin && userPos.X <= targetPos.X + margin ) {
             if (userPos.Y >= targetPos.Y - margin && userPos.Y <= targetPos.Y + margin ) {
-                Console.WriteLine("In the target");
-                PullCursor(userPos,targetPos);
+                
                 return true;
             }
         }
         return false;
+    }
+    static Boolean CheckDistance(POINT userPos, POINT targetPos, int radius) {
+        int dx = Math.Abs(userPos.X-targetPos.X);
+        int dy = Math.Abs(userPos.Y- targetPos.Y);
+        if (Math.Pow(dx,2) +Math.Pow(dy,2) <=Math.Pow(radius,2) ) {
+            
+            PullCursor(userPos,targetPos);
+            return true;
+        }  
+        else {
+            return false;
+        }
     }
     /*
         This is hardcoded but will eventually get the targets position on screen from whatever OCR we use
@@ -132,8 +143,7 @@ class program {
         while(true) {
             POINT p1 = GetMousePosition();
             POINT p2 = GetTargetPostition();
-            
-            if(CheckDistance(p1, p2)) {
+            if(CheckDistance(p1, p2,75)) {
                 ChangeMouseSpeed(1);
             } else {
                 ChangeMouseSpeed(8);
