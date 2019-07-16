@@ -31,6 +31,9 @@ class program {
     [return: MarshalAs(UnmanagedType.Bool)]
     static extern bool GetCursorPos(out POINT lpPoint); 
     
+    [DllImport("user32.dll", SetLastError = true)]
+    static extern bool SetCursorPos(int X, int Y);
+
     /*
         This struct holds the coords of objects on screen, either cursor or target
      */
@@ -39,6 +42,23 @@ class program {
         public POINT(int x, int y) {
             this.X = x;
             this.Y = y;
+        }
+    }
+        public struct FloatPoint {
+        public float X,Y;
+        public FloatPoint(float x, float y) {
+            this.X = x;
+            this.Y = y;
+        }
+        public static explicit operator FloatPoint(POINT p) => new FloatPoint((float)p.X, (float) p.Y);
+        public static bool operator ==(FloatPoint f1, FloatPoint f2) 
+        {
+            return (f1.X==f2.X && f1.Y == f2.Y);
+        }
+
+        public static bool operator !=(FloatPoint f1, FloatPoint f2) 
+        {
+            return !(f1.X==f2.X && f1.Y == f2.Y);
         }
     }
     /*
@@ -62,6 +82,7 @@ class program {
         if (userPos.X >= targetPos.X - margin && userPos.X <= targetPos.X + margin ) {
             if (userPos.Y >= targetPos.Y - margin && userPos.Y <= targetPos.Y + margin ) {
                 Console.WriteLine("In the target");
+                PullCursor(userPos,targetPos);
                 return true;
             }
         }
@@ -90,13 +111,29 @@ class program {
             speed, 
             0);
     }
-    
+    static void PullCursor(POINT cursor, POINT target) {
+        FloatPoint f = new FloatPoint(target.X-cursor.X,target.Y - cursor.Y);
+        FloatPoint stepper = (FloatPoint) cursor;
+        FloatPoint[] array = new FloatPoint[20];
+        f.X = f.X / 20;
+        f.Y = f.Y / 20;
+        for(int i = 0; i < 20; i ++) {
+            stepper = new FloatPoint(stepper.X + f.X, stepper.Y + f.Y);
+            SetCursorPos((int)(stepper.X),(int)(stepper.Y));
+            Thread.Sleep(10);
+            if((FloatPoint)target == stepper) {
+                break;
+            }
+        }
+    }
         
     static void Main(string[] args)
     {
         while(true) {
-            POINT p = GetMousePosition();
-            if(CheckDistance( GetMousePosition(), GetTargetPostition() )) {
+            POINT p1 = GetMousePosition();
+            POINT p2 = GetTargetPostition();
+            
+            if(CheckDistance(p1, p2)) {
                 ChangeMouseSpeed(1);
             } else {
                 ChangeMouseSpeed(8);
