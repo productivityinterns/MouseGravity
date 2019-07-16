@@ -1,0 +1,11 @@
+C:\Users\Intern1\Documents\MouseGravity\obj\Debug\netcoreapp2.2\MouseGravity.csprojAssemblyReference.cache
+C:\Users\Intern1\Documents\MouseGravity\obj\Debug\netcoreapp2.2\MouseGravity.csproj.CoreCompileInputs.cache
+C:\Users\Intern1\Documents\MouseGravity\obj\Debug\netcoreapp2.2\MouseGravity.AssemblyInfoInputs.cache
+C:\Users\Intern1\Documents\MouseGravity\obj\Debug\netcoreapp2.2\MouseGravity.AssemblyInfo.cs
+C:\Users\Intern1\Documents\MouseGravity\bin\Debug\netcoreapp2.2\MouseGravity.deps.json
+C:\Users\Intern1\Documents\MouseGravity\bin\Debug\netcoreapp2.2\MouseGravity.runtimeconfig.json
+C:\Users\Intern1\Documents\MouseGravity\bin\Debug\netcoreapp2.2\MouseGravity.runtimeconfig.dev.json
+C:\Users\Intern1\Documents\MouseGravity\bin\Debug\netcoreapp2.2\MouseGravity.dll
+C:\Users\Intern1\Documents\MouseGravity\bin\Debug\netcoreapp2.2\MouseGravity.pdb
+C:\Users\Intern1\Documents\MouseGravity\obj\Debug\netcoreapp2.2\MouseGravity.dll
+C:\Users\Intern1\Documents\MouseGravity\obj\Debug\netcoreapp2.2\MouseGravity.pdb
