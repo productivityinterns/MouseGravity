@@ -32,8 +32,10 @@ class program {
     {
         Cursor c = new Cursor();
         Boolean toggled = true;
+
         ScriptEngine engine = Python.CreateEngine();
         engine.ExecuteFile(@"test.py");
+
         Task.Run(() => {
             while(true) {
              if (Console.KeyAvailable) {
