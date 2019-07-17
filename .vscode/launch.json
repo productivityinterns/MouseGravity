@@ -26,10 +26,10 @@
             "WARNING16": "button at the bottom of this file.",
             "WARNING17": "*********************************************************************************",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/bin/Debug/<insert-target-framework-here>/<insert-project-name-here>.dll",
+            "program": "${workspaceFolder}/bin/Debug/netcoreapp2.2/Mousegravity.dll",
             "args": [],
             "cwd": "${workspaceFolder}",
-            "console": "internalConsole",
+            "console": "integratedTerminal" ,
             "stopAtEntry": false
         },
         {
