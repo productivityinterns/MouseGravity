@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Drawing;
-
+using IronPython.Hosting;
+using Microsoft.Scripting.Hosting;
 using System.Windows;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,6 +32,8 @@ class program {
     {
         Cursor c = new Cursor();
         Boolean toggled = true;
+        ScriptEngine engine = Python.CreateEngine();
+        engine.ExecuteFile(@"test.py");
         Task.Run(() => {
             while(true) {
              if (Console.KeyAvailable) {
