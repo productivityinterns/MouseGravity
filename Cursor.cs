@@ -91,14 +91,39 @@ class Cursor {
     public Boolean CheckDistance(POINT userPos, POINT targetPos, int radius) {
         int dx = Math.Abs(userPos.X-targetPos.X);
         int dy = Math.Abs(userPos.Y- targetPos.Y);
+        // Console.Write("X: "+dx+" Y: "+ dy);
+        // Thread.Sleep(200);
         if (Math.Pow(dx,2) +Math.Pow(dy,2) <=Math.Pow(radius,2) ) {  
-            //PullCursorLog(userPos,targetPos,dx,dy);
-            PullCursor(userPos,targetPos);
+            PullCursorLog(userPos,targetPos,dx,dy);
+            //PullCursor(userPos,targetPos);
             return true;
         }  
         else {
             return false;
         }
+    }
+    /*
+        Instead of literally Pulling cursor linearly to the point
+        apply logarithimc amounts of gravity to the cursor as it gets closer to the target
+        on log plot, x is distance from target, y is speed
+        the max distance is x = 14 units y = 8 speed 
+     */
+    public void PullCursorLog(POINT cursor, POINT target, double distX, double distY) {
+        FloatPoint f = new FloatPoint(target.X-cursor.X,target.Y - cursor.Y);
+        FloatPoint stepper = (FloatPoint) cursor;
+        double r = Math.Pow(distX,2) +Math.Pow(distY,2);
+        UInt32 newSpeed =  (UInt32) (Math.Log10(r/14.0));
+        Console.Write("\nSpeed: "+newSpeed);
+        ChangeMouseSpeed(newSpeed);
+        // for(int i = 0; i < 20; i ++) {
+        //     stepper = new FloatPoint(stepper.X + f.X, stepper.Y + f.Y);
+        //     SetCursorPos((int)(stepper.X),(int)(stepper.Y));
+        //     Thread.Sleep(10);
+        //     if((FloatPoint)target == stepper) {
+        //         break;
+        //     }
+        // }
+
     }
     /*
         This is hardcoded but will eventually get the targets position on screen from whatever OCR we use
@@ -145,10 +170,10 @@ class Cursor {
     public void Logic() {
         POINT p1 = GetMousePosition();
         POINT p2 = GetTargetPostition();
-        if(CheckDistance(p1, p2,200)) {
-            ChangeMouseSpeed(1);
-        } else {
+        if(!CheckDistance(p1, p2,200)) {
             ChangeMouseSpeed(8);
+        } else {
+            
         }
         Thread.Sleep(100);
     }
