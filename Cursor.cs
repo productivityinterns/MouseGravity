@@ -170,7 +170,7 @@ class Cursor {
     public void Logic() {
         POINT p1 = GetMousePosition();
         POINT p2 = GetTargetPostition();
-        if(!CheckDistance(p1, p2,200)) {
+        if(!CheckDistance(p1, p2,400)) {
             ChangeMouseSpeed(8);
         } else {
             
