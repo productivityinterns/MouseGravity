@@ -39,7 +39,7 @@ class program {
                  if ( Console.ReadKey(true).Key == ConsoleKey.Escape) {
                      Console.WriteLine("ay lamoe");
                       toggled = !toggled;
-                      c.ChangeMouseSpeed(10);
+                      c.ChangeMouseSpeed(8);
                       
                  }
             }
