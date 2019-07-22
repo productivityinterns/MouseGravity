@@ -111,18 +111,11 @@ class Cursor {
     public void PullCursorLog(POINT cursor, POINT target, double distX, double distY) {
         FloatPoint f = new FloatPoint(target.X-cursor.X,target.Y - cursor.Y);
         FloatPoint stepper = (FloatPoint) cursor;
-        double r = Math.Pow(distX,2) +Math.Pow(distY,2);
-        UInt32 newSpeed =  (UInt32) (Math.Log10(r/14.0));
-        Console.Write("\nSpeed: "+newSpeed);
+        double r = Math.Sqrt(Math.Pow(distX,2) + Math.Pow(distY,2));
+        //UInt32 newSpeed =  (UInt32)  (Math.Log(r));
+        UInt32 newSpeed = (UInt32) (0.5 * Math.Sqrt(r)) - 2;
+        Console.Write("\nRadius: "+ r+ " Speed: "+newSpeed);
         ChangeMouseSpeed(newSpeed);
-        // for(int i = 0; i < 20; i ++) {
-        //     stepper = new FloatPoint(stepper.X + f.X, stepper.Y + f.Y);
-        //     SetCursorPos((int)(stepper.X),(int)(stepper.Y));
-        //     Thread.Sleep(10);
-        //     if((FloatPoint)target == stepper) {
-        //         break;
-        //     }
-        // }
 
     }
     /*
@@ -170,7 +163,7 @@ class Cursor {
     public void Logic() {
         POINT p1 = GetMousePosition();
         POINT p2 = GetTargetPostition();
-        if(!CheckDistance(p1, p2,400)) {
+        if(!CheckDistance(p1, p2,200)) {
             ChangeMouseSpeed(8);
         } else {
             
