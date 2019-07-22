@@ -91,8 +91,8 @@ class Cursor {
     public Boolean CheckDistance(POINT userPos, POINT targetPos, int radius) {
         int dx = Math.Abs(userPos.X-targetPos.X);
         int dy = Math.Abs(userPos.Y- targetPos.Y);
-        if (Math.Pow(dx,2) +Math.Pow(dy,2) <=Math.Pow(radius,2) ) {
-            
+        if (Math.Pow(dx,2) +Math.Pow(dy,2) <=Math.Pow(radius,2) ) {  
+            //PullCursorLog(userPos,targetPos,dx,dy);
             PullCursor(userPos,targetPos);
             return true;
         }  
@@ -117,12 +117,15 @@ class Cursor {
             speed = 0;
         }
 
-            SystemParametersInfo(
-            SPI_SETMOUSESPEED, 
-            0, 
-            speed, 
-            0);
+        SystemParametersInfo(
+        SPI_SETMOUSESPEED, 
+        0, 
+        speed, 
+        0);
     }
+    /*
+    Pull cursor linearly
+     */
     public void PullCursor(POINT cursor, POINT target) {
         FloatPoint f = new FloatPoint(target.X-cursor.X,target.Y - cursor.Y);
         FloatPoint stepper = (FloatPoint) cursor;
@@ -138,6 +141,7 @@ class Cursor {
             }
         }
     }
+    
     public void Logic() {
         POINT p1 = GetMousePosition();
         POINT p2 = GetTargetPostition();
